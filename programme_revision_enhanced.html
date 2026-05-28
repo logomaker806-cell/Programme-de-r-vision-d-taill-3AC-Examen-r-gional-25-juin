@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme de révision — 3AC | Examen régional 25 juin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --surface3: #212d42;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text-primary: #f0f4ff;
+    --text-secondary: #8b9abf;
+    --text-tertiary: #5a6b8a;
+    --accent-blue: #4f8ef7;
+    --accent-orange: #f59e2a;
+    --accent-green: #2dd4a0;
+    --accent-purple: #a78bfa;
+    --accent-red: #f87171;
+    --accent-teal: #22d3ee;
+    --gold: #f5c842;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+
+  .bg-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .bg-grad { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 10% -10%, rgba(79,142,247,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 90% 20%, rgba(167,139,250,0.14) 0%, transparent 55%), radial-gradient(ellipse 70% 60% at 50% 100%, rgba(45,212,160,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(245,158,42,0.08) 0%, transparent 50%); }
+  .bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px); background-size: 48px 48px; }
+  .bg-orb1 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(79,142,247,0.12), transparent 70%); top: -100px; left: -150px; animation: orbFloat 12s ease-in-out infinite; }
+  .bg-orb2 { position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(167,139,250,0.10), transparent 70%); top: 200px; right: -100px; animation: orbFloat 16s ease-in-out infinite reverse; }
+  .bg-orb3 { position: absolute; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(45,212,160,0.08), transparent 70%); bottom: 50px; left: 30%; animation: orbFloat 14s ease-in-out infinite 3s; }
+  @keyframes orbFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+
+  .page { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+  .hero { text-align: center; padding: 2.5rem 1rem 2rem; margin-bottom: 1.5rem; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,200,66,0.12); border: 1px solid rgba(245,200,66,0.3); border-radius: 999px; padding: 5px 14px; font-size: 11px; font-weight: 600; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; animation: fadeSlideDown 0.6s ease both; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 0.5rem; background: linear-gradient(135deg, #f0f4ff 30%, var(--accent-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: fadeSlideDown 0.7s ease 0.1s both; }
+  .hero-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.5rem; animation: fadeSlideDown 0.7s ease 0.2s both; }
+  .hero-exam { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, rgba(248,113,113,0.15), rgba(245,158,42,0.15)); border: 1px solid rgba(248,113,113,0.35); border-radius: var(--radius-md); padding: 10px 20px; font-size: 13px; font-weight: 600; color: #fca5a5; animation: fadeSlideDown 0.7s ease 0.3s both; }
+  .hero-exam span { color: var(--accent-red); font-size: 16px; }
+  @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* XP STATS */
+  .xp-bar-wrap { display: flex; gap: 10px; margin: 0 0 1.5rem; animation: fadeIn 0.6s ease 0.5s both; flex-wrap: wrap; }
+  .xp-card { flex: 1; min-width: 90px; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-md); padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; position: relative; overflow: hidden; }
+  .xp-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--xp-color, rgba(79,142,247,0.08)), transparent); pointer-events: none; }
+  .xp-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); }
+  .xp-value { font-size: 22px; font-weight: 700; color: var(--xp-color, var(--accent-blue)); font-variant-numeric: tabular-nums; line-height: 1; }
+  .xp-sub { font-size: 10px; color: var(--text-tertiary); }
+
+  /* GLOBAL PROGRESS */
+  .global-prog-wrap { background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 1.5rem; animation: fadeIn 0.6s ease 0.6s both; }
+  .global-prog-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .global-prog-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); }
+  .global-prog-pct { font-size: 13px; font-weight: 700; color: var(--accent-blue); }
+  .prog-track { height: 8px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+
+  /* WEEK TABS */
+  .week-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 1.5rem; scrollbar-width: none; animation: fadeIn 0.6s ease 0.4s both; }
+  .week-tabs::-webkit-scrollbar { display: none; }
+  .wtab { flex-shrink: 0; padding: 8px 14px; border-radius: var(--radius-md); border: 1px solid var(--border2); background: var(--surface2); color: var(--text-secondary); font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s ease; font-family: 'DM Sans', sans-serif; }
+  .wtab:hover { background: var(--surface3); color: var(--text-primary); border-color: rgba(255,255,255,0.2); }
+  .wtab.active { background: linear-gradient(135deg, rgba(79,142,247,0.25), rgba(79,142,247,0.1)); color: var(--accent-blue); border-color: rgba(79,142,247,0.5); font-weight: 600; }
+  .wtab .tab-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); margin-left: 5px; vertical-align: middle; box-shadow: 0 0 6px var(--accent-green); opacity: 0; transition: opacity 0.3s; }
+  .wtab.has-done .tab-dot { opacity: 1; }
+  .wtab.all-done .tab-dot { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+
+  .week-panel { display: none; animation: fadeIn 0.35s ease both; }
+  .week-panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* WEEK HEADER */
+  .wk-hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; padding: 14px 16px; border-radius: var(--radius-lg); border: 1px solid var(--border2); background: var(--surface2); position: relative; overflow: hidden; }
+  .wk-hdr::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--wk-color, var(--accent-blue)); border-radius: 4px 0 0 4px; }
+  .wk-hdr-title { font-weight: 600; font-size: 14px; }
+  .wk-hdr-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+  .wk-prog-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .wk-prog-track { flex: 1; height: 5px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; }
+  .wk-prog-fill { height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+  .wk-prog-lbl { font-size: 10px; font-weight: 700; min-width: 28px; text-align: right; }
+
+  /* DAY CARD */
+  .day-card { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); margin-bottom: 8px; overflow: hidden; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+  .day-card:hover { border-color: var(--border2); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+  .day-card.open { border-color: rgba(79,142,247,0.25); box-shadow: 0 6px 32px rgba(79,142,247,0.08); }
+  .day-card.done { border-color: rgba(45,212,160,0.3) !important; background: linear-gradient(135deg, rgba(45,212,160,0.04), var(--surface)); }
+  .day-card.done .day-hdr { background: rgba(45,212,160,0.04); }
+
+  .day-hdr { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; cursor: pointer; transition: background 0.15s; gap: 8px; }
+  .day-hdr:hover { background: var(--surface2); }
+  .day-card.open .day-hdr { border-bottom: 1px solid var(--border); }
+
+  .day-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; box-shadow: 0 0 6px currentColor; transition: background 0.3s, box-shadow 0.3s; }
+  .dname { font-size: 11px; color: var(--text-tertiary); font-weight: 500; transition: color 0.3s; }
+  .day-card.done .dname { color: var(--accent-green); }
+  .dlesson { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-top: 1px; transition: opacity 0.3s; }
+  .day-card.done .dlesson { opacity: 0.55; }
+  .chev { font-size: 15px; color: var(--text-tertiary); transition: transform 0.25s ease; }
+  .day-card.open .chev { transform: rotate(180deg); }
+
+  /* DONE BUTTON */
+  .done-btn { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; border: 2px solid rgba(45,212,160,0.35); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); font-size: 14px; color: transparent; position: relative; z-index: 2; }
+  .done-btn:hover { border-color: var(--accent-green); background: rgba(45,212,160,0.12); transform: scale(1.1); }
+  .done-btn::after { content: '✓'; position: absolute; color: transparent; font-weight: 900; transition: color 0.2s; }
+  .done-btn:hover::after { color: rgba(45,212,160,0.5); }
+  .done-btn.checked { background: var(--accent-green); border-color: var(--accent-green); box-shadow: 0 0 0 0 rgba(45,212,160,0.4); animation: pulseGlow 2s ease-out infinite; }
+  .done-btn.checked::after { color: #0a0e1a; }
+  @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(45,212,160,0.5); } 60% { box-shadow: 0 0 0 8px rgba(45,212,160,0); } 100% { box-shadow: 0 0 0 0 rgba(45,212,160,0); } }
+
+  /* DAY BODY */
+  .day-body { display: none; padding: 14px; }
+  .day-card.open .day-body { display: block; }
+
+  .sec-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin: 12px 0 8px; display: flex; align-items: center; gap: 8px; }
+  .sec-lbl:first-child { margin-top: 0; }
+  .sec-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .srow { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .srow:last-child { border-bottom: none; }
+  .stime { flex-shrink: 0; font-size: 10.5px; color: var(--text-tertiary); font-weight: 600; min-width: 90px; padding-top: 2px; font-variant-numeric: tabular-nums; }
+  .sinfo { flex: 1; }
+  .stype { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+  .sdesc { font-size: 12px; color: var(--text-secondary); line-height: 1.45; }
+  .srow.soutien { background: rgba(45,212,160,0.06); border: 1px solid rgba(45,212,160,0.2); border-radius: var(--radius-sm); padding: 8px 10px; margin: 4px 0; }
+  .srow.soutien .stime { color: var(--accent-green); }
+  .srow.soutien .stype { color: var(--accent-green); }
+
+  .tc { color: var(--accent-blue); } .to { color: var(--accent-orange); } .tg { color: var(--accent-green); }
+  .tp { color: var(--accent-purple); } .ta { color: var(--accent-red); } .ts2 { color: var(--accent-teal); }
+  .th { color: #94a3b8; } .ti { color: var(--accent-teal); }
+
+  .pill { font-size: 10px; padding: 2px 8px; border-radius: 999px; display: inline-block; margin: 2px; font-weight: 500; }
+  .badge-rev { background: rgba(99,153,34,.15); color: #86efac; border: 1px solid rgba(99,153,34,.25); }
+  .badge-ctrl { background: rgba(248,113,113,.12); color: #fca5a5; border: 1px solid rgba(248,113,113,.25); }
+  .badge-prio { background: rgba(167,139,250,.12); color: var(--accent-purple); border: 1px solid rgba(167,139,250,.3); font-size: 11px; padding: 3px 10px; }
+
+  .repos-top { background: linear-gradient(135deg, var(--surface2), var(--surface3)); border: 1px solid var(--border2); border-radius: var(--radius-xl); padding: 1.5rem; text-align: center; margin-bottom: 12px; }
+  .repos-top .emoji { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+  .repos-top .title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .repos-top .sub { font-size: 12px; color: var(--text-secondary); }
+
+  .exam-banner { border: 2px solid rgba(248,113,113,0.4); background: linear-gradient(135deg, rgba(248,113,113,0.08), rgba(245,158,42,0.06)); border-radius: var(--radius-xl); padding: 1.5rem; text-align: center; margin-top: 12px; position: relative; overflow: hidden; }
+  .exam-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(248,113,113,0.12), transparent 60%); }
+  .exam-banner > * { position: relative; z-index: 1; }
+  .exam-banner .e-icon { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+  .exam-banner .e-title { font-size: 18px; font-weight: 700; color: var(--accent-red); margin-bottom: 6px; }
+  .exam-banner .e-sub { font-size: 13px; color: var(--text-secondary); }
+
+  /* WEEK COMPLETE BANNER */
+  .wk-complete { display: none; align-items: center; gap: 12px; background: linear-gradient(135deg, rgba(45,212,160,0.12), rgba(245,200,66,0.08)); border: 1px solid rgba(45,212,160,0.35); border-radius: var(--radius-lg); padding: 14px 20px; margin-bottom: 12px; animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .wk-complete.visible { display: flex; }
+  @keyframes popIn { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  .wc-icon { font-size: 1.8rem; }
+  .wc-text { font-size: 13px; font-weight: 700; color: var(--accent-green); }
+  .wc-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* TOAST */
+  #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: linear-gradient(135deg, rgba(45,212,160,0.97), rgba(34,211,238,0.93)); color: #0a0e1a; border-radius: var(--radius-lg); padding: 12px 24px; font-size: 13px; font-weight: 700; box-shadow: 0 8px 32px rgba(45,212,160,0.4); z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s; opacity: 0; white-space: nowrap; pointer-events: none; }
+  #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* CONFETTI */
+  #conf-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 9998; overflow: hidden; }
+  .conf { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: confFall 1.6s ease-in forwards; }
+  @keyframes confFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(120vh) rotate(720deg); opacity: 0; } }
+
+  .footer { text-align: center; padding: 2rem 0 1rem; font-size: 11px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+
+<div class="bg-wrap">
+  <div class="bg-grad"></div><div class="bg-grid"></div>
+  <div class="bg-orb1"></div><div class="bg-orb2"></div><div class="bg-orb3"></div>
+</div>
+
+<div id="conf-wrap"></div>
+<div id="toast">🔥 Bien joué !</div>
+
+<div class="page">
+  <div class="hero">
+    <div class="hero-badge">📚 Révision Intensive</div>
+    <h1 class="hero-title">Programme de Révision<br>3AC — Examen Régional</h1>
+    <p class="hero-sub">Du 1er au 24 juin · 5 semaines · Toutes les matières</p>
+    <div class="hero-exam">
+      <span>📝</span>
+      Examen régional — <strong style="color:var(--accent-red);margin:0 4px;">Jeudi 25 juin</strong> · Courage et confiance !
+    </div>
+  </div>
+
+  <!-- XP STATS -->
+  <div class="xp-bar-wrap">
+    <div class="xp-card" style="--xp-color: rgba(45,212,160,0.9)">
+      <div class="xp-label">Jours terminés</div>
+      <div class="xp-value" id="stat-done">0</div>
+      <div class="xp-sub">sur <span id="stat-total">0</span> jours</div>
+    </div>
+    <div class="xp-card" style="--xp-color: rgba(245,200,66,0.9)">
+      <div class="xp-label">XP gagnés</div>
+      <div class="xp-value" id="stat-xp">0</div>
+      <div class="xp-sub">points</div>
+    </div>
+    <div class="xp-card" style="--xp-color: rgba(248,113,113,0.9)">
+      <div class="xp-label">Jours restants</div>
+      <div class="xp-value" id="stat-left">0</div>
+      <div class="xp-sub">avant l'exam</div>
+    </div>
+  </div>
+
+  <!-- GLOBAL PROGRESS -->
+  <div class="global-prog-wrap">
+    <div class="global-prog-top">
+      <span class="global-prog-title">🚀 Progression globale</span>
+      <span class="global-prog-pct" id="global-pct">0%</span>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" id="global-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="week-tabs" id="wtabs"></div>
+  <div id="wc"></div>
+
+  <div class="footer">Programme préparé avec soin · Bonne révision ! 🌙</div>
+</div>
+
+<script>
+const C={m:"#4f8ef7",p:"#f59e2a",s:"#2dd4a0",f:"#a78bfa",a:"#f87171",h:"#94a3b8",i:"#22d3ee"};
+
+function save(id,v){try{localStorage.setItem('r_'+id,v?'1':'0');}catch(e){}}
+function load(id){try{return localStorage.getItem('r_'+id)==='1';}catch(e){return false;}}
+
+function spawnConf(x,y){
+  const w=document.getElementById('conf-wrap');
+  const cols=['#4f8ef7','#2dd4a0','#f5c842','#a78bfa','#f87171','#22d3ee'];
+  for(let i=0;i<22;i++){
+    const el=document.createElement('div');
+    el.className='conf';
+    el.style.cssText=`left:${x+(Math.random()-0.5)*140}px;top:${y-20}px;background:${cols[i%cols.length]};width:${6+Math.random()*6}px;height:${6+Math.random()*6}px;animation-delay:${Math.random()*0.35}s;animation-duration:${1.1+Math.random()*0.9}s`;
+    w.appendChild(el);
+    setTimeout(()=>el.remove(),2400);
+  }
+}
+
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+let totalDays=0;
+const doneDays=new Set();
+
+function updateStats(){
+  const done=doneDays.size, total=totalDays;
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('stat-done').textContent=done;
+  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-xp').textContent=done*50;
+  document.getElementById('stat-left').textContent=Math.max(0,total-done);
+  document.getElementById('global-pct').textContent=pct+'%';
+  document.getElementById('global-fill').style.width=pct+'%';
+  document.querySelectorAll('.wk-prog-fill').forEach(fill=>{
+    const wid=fill.dataset.week, tot=parseInt(fill.dataset.total);
+    const dw=document.querySelectorAll(`.day-card[data-week="${wid}"].done`).length;
+    const pw=tot?Math.round(dw/tot*100):0;
+    fill.style.width=pw+'%';
+    const lbl=fill.parentElement.nextElementSibling;
+    if(lbl)lbl.textContent=pw+'%';
+    const tab=document.getElementById('wt-'+wid);
+    if(tab){tab.classList.toggle('has-done',dw>0);tab.classList.toggle('all-done',dw===tot&&tot>0);}
+    const banner=document.querySelector(`.wk-complete[data-week="${wid}"]`);
+    if(banner)banner.classList.toggle('visible',dw===tot&&tot>0);
+  });
+}
+
+function toggleDone(e,id,wid){
+  e.stopPropagation();
+  const card=document.getElementById(id);
+  const btn=card.querySelector('.done-btn');
+  const isNow=!card.classList.contains('done');
+  card.classList.toggle('done',isNow);
+  btn.classList.toggle('checked',isNow);
+  const dn=card.querySelector('.dname');
+  if(isNow){
+    if(!dn.textContent.includes('✅'))dn.textContent=dn.textContent+' · ✅ Terminé';
+    card.querySelector('.day-dot').style.cssText='background:#2dd4a0;color:#2dd4a0;box-shadow:0 0 10px #2dd4a0';
+    doneDays.add(id);
+    const rect=btn.getBoundingClientRect();
+    spawnConf(rect.left+rect.width/2,rect.top+rect.height/2);
+    const msgs=['🔥 +50 XP !','⚡ Bien joué !','💪 Continue !','🎯 Un de plus !','🚀 Tu déchires !','✨ Parfait !','🏆 Top !'];
+    toast(msgs[Math.floor(Math.random()*msgs.length)]);
+  } else {
+    dn.textContent=dn.textContent.replace(' · ✅ Terminé','');
+    const wk=WEEKS.find(w=>w.id==wid);
+    if(wk)card.querySelector('.day-dot').style.cssText=`background:${wk.col};color:${wk.col}`;
+    doneDays.delete(id);
+  }
+  save(id,isNow);
+  updateStats();
+}
+
+function sess(lessons,subj){
+  const L=lessons.join(" + ");
+  const tips={m:"Refaire chaque exo jusqu'à maîtriser la méthode.",p:"Écrire les formules 3 fois. Les mémoriser absolument.",s:"Redessiner les schémas de mémoire. Légender sans regarder.",f:"Transformer 5 phrases par structure. S'entraîner à l'expression.",a:"Rédiger les règles grammaticales en phrases. Faire un texte.",h:"Retenir dates clés et mots-clés. 2-3 chiffres par pays.",i:"Réciter les versets. Définitions clés par écrit."}[subj]||"";
+  return{d:[
+    {t:"10:00 – 12:00",tp:"tc",lbl:"Cours",desc:`Lire + comprendre : ${L}. Identifier définitions, règles, formules. Souligner les points clés.`},
+    {t:"12:00 – 13:00",tp:"",lbl:"Pause déjeuner",desc:"Déjeuner + Dhohr. Pas d'écran, repos mental complet."},
+    {t:"13:00 – 15:00",tp:"to",lbl:"Exercices",desc:`Exercices du manuel sur : ${L}. Faire sans regarder le cours, puis corriger. ${tips}`},
+    {t:"15:00 – 17:00",tp:"tp",lbl:"Mémorisation",desc:`Créer une fiche mémo d'une page : résumer ${L}. Relire 3 fois. Fermer et réécrire de mémoire.`},
+    {t:"17:00 – 18:00",tp:"",lbl:"Pause Asr",desc:"Prière Asr + détente. Pas plus de 60 min."},
+    {t:"18:00 – 20:00",tp:"ts2",lbl:"SOUTIEN",desc:`Revoir les blocages de la journée avec le professeur. Questions sur : ${L}.`,soutien:1},
+    {t:"20:00 – 21:00",tp:"ta",lbl:"Quiz rapide",desc:`3 à 5 exercices types sur ${L}. Chronométrer. Maghrib. Préparer fiche nuit.`}
+  ],n:[
+    {t:"00:00 – 02:00",tp:"tc",lbl:"Révision nuit",desc:`Relire fiche mémo de ${L}. Réécrire toutes les formules/règles de mémoire.`},
+    {t:"02:00 – 04:00",tp:"to",lbl:"Exercices nuit",desc:`Exercices supplémentaires + annales régionales sur ${L}. Chronométrer chaque exercice.`},
+    {t:"04:00 – 05:30",tp:"tp",lbl:"Mémo intensif",desc:`Fermer tout : réécrire de mémoire les 5 points essentiels de ${L}.`},
+    {t:"05:30 – 06:00",tp:"",lbl:"Fajr",desc:"Prière Fajr + 10 min de récupération."},
+    {t:"06:00 – 08:00",tp:"tg",lbl:"Synthèse finale",desc:`Refaire un exercice type complet sans aide. Lister les 3 erreurs fréquentes à éviter.`}
+  ]};
+}
+
+const WEEKS=[
+  {id:1,title:"S1 — Mathématiques",range:"1–7 juin",col:C.m,prio:true,days:[
+    {date:"Lun 1 juin",lessons:["Équations et inéquations"],subj:"m"},
+    {date:"Mar 2 juin",lessons:["Vecteurs et translation"],subj:"m"},
+    {date:"Mer 3 juin",lessons:["Repère dans le plan","Équation d'une droite"],subj:"m"},
+    {date:"Jeu 4 juin",lessons:["Fonction linéaire et affine"],subj:"m"},
+    {date:"Ven 5 juin",lessons:["Systèmes de 2 équations à 2 inconnues"],subj:"m"},
+    {date:"Sam 6 juin",lessons:["Géométrie dans l'espace","Statistiques"],subj:"m"},
+    {date:"Dim 7 juin",lessons:["Révision maths — exercices corrigés"],subj:"m",rev:1},
+  ]},
+  {id:2,title:"S2 — Physique-Chimie",range:"8–14 juin",col:C.p,days:[
+    {date:"Lun 8 juin",lessons:["Le mouvement et le repos","La vitesse moyenne"],subj:"p"},
+    {date:"Mar 9 juin",lessons:["Les actions mécaniques","Les forces"],subj:"p"},
+    {date:"Mer 10 juin",lessons:["Équilibre d'un solide soumis à 2 forces","Le poids et la masse"],subj:"p"},
+    {date:"Jeu 11 juin",lessons:["La loi d'Ohm","La puissance électrique"],subj:"p"},
+    {date:"Ven 12 juin",lessons:["L'énergie électrique"],subj:"p"},
+    {date:"Sam 13 juin",lessons:["Révision physique — formules + exercices"],subj:"p",rev:1},
+    {date:"Dim 14 juin",lessons:["Contrôle blanc maths + physique"],subj:"p",ctrl:1},
+  ]},
+  {id:3,title:"S3 — SVT + Français + عربية",range:"15–21 juin",col:C.s,prio:true,days:[
+    {date:"Lun 15 juin",lessons:["Le système nerveux","Le système musculaire"],subj:"s"},
+    {date:"Mar 16 juin",lessons:["Les microbes","Le système immunitaire"],subj:"s"},
+    {date:"Mer 17 juin",lessons:["Dysfonctionnement du système immunitaire","Révision SVT schémas"],subj:"s"},
+    {date:"Jeu 18 juin",lessons:["Discours direct / indirect","Coordination + Subordonnées (cause, conséquence)"],subj:"f"},
+    {date:"Ven 19 juin",lessons:["Subordonnées (but, opposition)","Expression écrite : tolérance, rôle de la femme"],subj:"f"},
+    {date:"Sam 20 juin",lessons:["الإضافة — الممنوع من الصرف","الصفة المشبهة — اسم التفضيل"],subj:"a"},
+    {date:"Dim 21 juin",lessons:["أساليب : التعجب، المدح والذم، النداء، الاستفهام","التعبير والإنشاء (السرد، الحجاج، السيرة)"],subj:"a"},
+  ]},
+  {id:4,title:"S4 — Hist-Géo + Islamique",range:"22 juin",col:C.h,days:[
+    {date:"Lun 22 juin",lessons:["الأنظمة الديكتاتورية — النازية","الحرب العالمية الثانية (أسباب ونتائج)","القضية الفلسطينية","المغرب : الاستقلال والمراحل الكبرى","Géo : USA / Japon / Russie / Nigéria","سورة الحديد — الزكاة","التعارف والتعايش — السلم العالمي"],subj:"h",special:1},
+  ]},
+  {id:5,title:"Repos pré-exam",range:"23–24 juin",col:C.i,repos:true,days:[
+    {date:"Mar 23 juin",repos:1},
+    {date:"Mer 24 juin",repos:1,last:1},
+  ]},
+];
+
+function ctrlSess(){return{d:[
+  {t:"10:00 – 12:00",tp:"to",lbl:"Contrôle blanc",desc:"Faire le contrôle en conditions réelles : chronomètre, silence total, aucune aide. Maths + physique."},
+  {t:"12:00 – 13:00",tp:"",lbl:"Pause",desc:"Déjeuner + Dhohr."},
+  {t:"13:00 – 15:00",tp:"tc",lbl:"Auto-correction",desc:"Corriger avec le corrigé officiel. Entourer chaque erreur. Noter les leçons à retravailler."},
+  {t:"15:00 – 17:00",tp:"tp",lbl:"Points faibles",desc:"Réviser UNIQUEMENT les leçons où il y a eu des erreurs dans le contrôle blanc."},
+  {t:"17:00 – 18:00",tp:"",lbl:"Pause Asr",desc:"Prière + repos."},
+  {t:"18:00 – 20:00",tp:"ts2",lbl:"SOUTIEN",desc:"Corriger les erreurs du contrôle blanc avec le professeur. Comprendre les méthodes correctes.",soutien:1},
+  {t:"20:00 – 21:00",tp:"ta",lbl:"Bilan",desc:"Relire les corrections. Préparer fiches pour la semaine suivante. Maghrib."},
+],n:[
+  {t:"00:00 – 02:00",tp:"tc",lbl:"Révision nuit",desc:"Refaire les exercices ratés du contrôle. Sans regarder la correction cette fois."},
+  {t:"02:00 – 04:00",tp:"to",lbl:"Exercices nuit",desc:"Exercices supplémentaires sur les points faibles identifiés."},
+  {t:"04:00 – 05:30",tp:"tp",lbl:"Mémo erreurs",desc:"Fiche des erreurs types à ne plus refaire. Mémoriser les bonnes méthodes."},
+  {t:"05:30 – 06:00",tp:"",lbl:"Fajr",desc:"Prière Fajr."},
+  {t:"06:00 – 08:00",tp:"tg",lbl:"Synthèse",desc:"Refaire un mini-contrôle sur les points faibles. Auto-évaluation finale."},
+]};}
+
+function specialSess(){return{d:[
+  {t:"10:00 – 11:30",tp:"th",lbl:"Histoire 1",desc:"الأنظمة الديكتاتورية — النازية. الحرب العالمية الثانية : أسباب ونتائج. Fiche = dates clés + causes + personnages."},
+  {t:"11:30 – 13:00",tp:"th",lbl:"Histoire 2",desc:"القضية الفلسطينية والصراع العربي الإسرائيلي. Mémoriser chronologie et événements clés."},
+  {t:"13:00 – 14:00",tp:"",lbl:"Pause déjeuner",desc:"Déjeuner + Dhohr."},
+  {t:"14:00 – 15:30",tp:"th",lbl:"Maroc + Géo",desc:"المغرب : الاستقلال + المراحل الكبرى للدولة. Géographie : 2-3 chiffres clés par pays (USA, Japon, Russie, Nigéria)."},
+  {t:"15:30 – 17:00",tp:"tp",lbl:"Mémorisation",desc:"Fiches hist-géo : timeline + carte mentale. الحفاظ على التراث — المواطنة. Écrire de mémoire."},
+  {t:"17:00 – 18:00",tp:"",lbl:"Pause Asr",desc:"Prière Asr + repos."},
+  {t:"18:00 – 20:00",tp:"ts2",lbl:"SOUTIEN",desc:"Révision hist-géo + islamique avec le professeur. Derniers points flous à clarifier.",soutien:1},
+  {t:"20:00 – 21:00",tp:"ti",lbl:"Islamique",desc:"سورة الحديد — الزكاة — إثارة المؤمنين. التعارف والتعايش — المغرب والسلم العالمي. Réciter + réécrire de mémoire. Maghrib."},
+],n:[
+  {t:"00:00 – 02:00",tp:"tc",lbl:"Révision nuit",desc:"Révision générale rapide : relire TOUTES les fiches de la semaine 4. Dates clés histoire."},
+  {t:"02:00 – 04:00",tp:"to",lbl:"Annales",desc:"Questions annales régionales : hist-géo + islamique. Entraînement réponses courtes et développées."},
+  {t:"04:00 – 05:30",tp:"tp",lbl:"Mémo final",desc:"Islamique : réciter سورة الحديد. Écrire les mots-clés de chaque leçon hist-géo."},
+  {t:"05:30 – 06:00",tp:"",lbl:"Fajr",desc:"Prière Fajr."},
+  {t:"06:00 – 08:00",tp:"tg",lbl:"Révision générale express",desc:"Parcourir rapidement TOUTES les fiches de toutes les matières. Identifier les 3 points les plus fragiles."},
+]};}
+
+function reposSess(isLast){return{d:[
+  {t:"10:00 – 12:00",tp:"tc",lbl:isLast?"Lecture fiches":"Révision légère",desc:isLast?"Lire une dernière fois les fiches maths, français et arabe UNIQUEMENT. Rien de nouveau.":"Parcourir toutes les fiches mémo (lecture seulement). Identifier les points fragiles."},
+  {t:"12:00 – 13:00",tp:"",lbl:"Pause",desc:"Déjeuner + Dhohr. Repos total."},
+  {t:"13:00 – 15:00",tp:"tc",lbl:"Maths / Français",desc:isLast?"Relire formules mathématiques et structures grammaticales françaises. Aucun exercice.":"Révision maths : revoir les formules clés. Français : relire les règles de grammaire essentielles."},
+  {t:"15:00 – 17:00",tp:"ta",lbl:"Arabe / Hist-Géo",desc:isLast?"Arabe : relire les fiches أساليب. Islamique : révision finale.":"Revoir les règles d'arabe mémorisées. Révision rapide hist-géo islamique."},
+  {t:"17:00 – 18:00",tp:"",lbl:"Pause Asr",desc:"Asr + repos. Ne pas s'épuiser."},
+  {t:"18:00 – 20:00",tp:"ts2",lbl:"SOUTIEN",desc:isLast?"Dernier soutien avant l'examen. Poser les dernières questions. Clarifier tous les doutes.":"Soutien : poser les questions restantes. Pas de nouveau cours.",soutien:1},
+  {t:"20:00 – 21:00",tp:"",lbl:isLast?"Repos total":"Préparation",desc:isLast?"Maghrib. REPOS TOTAL. Préparer trousse + carte d'identité. Dormir à 22:00 maximum !":"Préparer matériel examen. Maghrib. Dormir tôt."},
+],n:isLast?[
+  {t:"00:00 – 02:00",tp:"tc",lbl:"Révision très légère",desc:"Relire une dernière fois les fiches maths et arabe uniquement. Pas d'exercices."},
+  {t:"02:00 – 04:00",tp:"tp",lbl:"Mémo pré-exam",desc:"Écrire 10 formules / règles les plus importantes de chaque matière. Fermer et dormir ensuite."},
+  {t:"04:00 – 05:30",tp:"",lbl:"REPOS",desc:"Dormir ! L'examen est demain matin. Le cerveau a besoin de récupérer pour performer."},
+  {t:"05:30 – 06:00",tp:"",lbl:"Fajr",desc:"Prière Fajr. Demander la réussite. Confiance en soi."},
+  {t:"06:00 – 08:00",tp:"tg",lbl:"Préparation examen",desc:"Se lever, se préparer, relire 5 formules clés par matière. Aller à l'examen serein et confiant !"},
+]:[
+  {t:"00:00 – 02:00",tp:"tc",lbl:"Révision calme",desc:"Relire fiches des sujets prioritaires (maths, français, arabe). Pas de nouveaux exercices."},
+  {t:"02:00 – 04:00",tp:"tp",lbl:"Mémo final",desc:"Réécrire de mémoire : formules maths + règles grammaire française + قواعد العربية clés."},
+  {t:"04:00 – 05:30",tp:"th",lbl:"Hist-Géo recap",desc:"Dates clés + personnages hist. 2-3 chiffres par pays. Réciter سورة الحديد."},
+  {t:"05:30 – 06:00",tp:"",lbl:"Fajr",desc:"Prière Fajr + calme."},
+  {t:"06:00 – 08:00",tp:"tg",lbl:"Dernier tour fiches",desc:"Dernier parcours rapide de toutes les fiches. Les 5 formules/règles les plus importantes. Se reposer après 08:00."},
+]};}
+
+function rowHTML(s){
+  return`<div class="srow${s.soutien?' soutien':''}"><div class="stime">${s.t}</div><div class="sinfo"><div class="stype ${s.tp}">${s.lbl}</div><div class="sdesc">${s.desc}</div></div></div>`;
+}
+
+function dayHTML(d,col,wid){
+  const id="d-"+d.date.replace(/\s/g,"-");
+  const isDone=load(id);
+  let S;
+  if(d.repos) S=reposSess(d.last);
+  else if(d.special) S=specialSess();
+  else if(d.ctrl) S=ctrlSess();
+  else S=sess(d.lessons,d.subj);
+
+  const dotStyle=isDone?'background:#2dd4a0;color:#2dd4a0;box-shadow:0 0 10px #2dd4a0':`background:${col};color:${col}`;
+  const dnameTxt=d.date+(isDone?' · ✅ Terminé':'');
+  const bodyHTML=`<div class="day-body"><div class="sec-lbl">Journée — 10:00 à 21:00</div>${S.d.map(rowHTML).join("")}<div class="sec-lbl">Nuit — 00:00 à 08:00</div>${S.n.map(rowHTML).join("")}</div>`;
+
+  if(d.repos){
+    return`<div class="day-card${isDone?' done':''}" id="${id}" data-week="${wid}"><div class="day-hdr" onclick="tgl('${id}')"><div style="display:flex;gap:8px;align-items:flex-start;"><div class="day-dot" style="${dotStyle}"></div><div><div class="dname">${dnameTxt}</div><div class="dlesson">Repos${d.last?" — Veille de l'examen":""}</div></div></div><div style="display:flex;align-items:center;gap:6px;"><button class="done-btn${isDone?' checked':''}" onclick="toggleDone(event,'${id}','${wid}')" title="Marquer comme terminé"></button><i class="ti ti-chevron-down chev"></i></div></div>${bodyHTML}</div>`;
+  }
+  const l0=d.lessons[0];
+  const lMore=d.lessons.length>1?` <span style="color:var(--text-tertiary);font-weight:400;">+${d.lessons.length-1}</span>`:"";
+  const badges=(d.rev?`<span class="pill badge-rev">Révision</span>`:"")+(d.ctrl?`<span class="pill badge-ctrl">Contrôle blanc</span>`:"");
+  const pillsHTML=d.lessons.length>1?`<div style="margin-bottom:12px;display:flex;flex-wrap:wrap;gap:4px;">${d.lessons.map(l=>`<span class="pill" style="background:${col}18;color:${col};border:1px solid ${col}33;">${l}</span>`).join("")}</div>`:"";
+
+  return`<div class="day-card${isDone?' done':''}" id="${id}" data-week="${wid}"><div class="day-hdr" onclick="tgl('${id}')"><div style="display:flex;gap:8px;align-items:flex-start;flex:1;min-width:0;"><div class="day-dot" style="${dotStyle}"></div><div style="min-width:0"><div class="dname">${dnameTxt}</div><div class="dlesson">${l0}${lMore}</div></div></div><div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">${badges}<button class="done-btn${isDone?' checked':''}" onclick="toggleDone(event,'${id}','${wid}')" title="Marquer comme terminé"></button><i class="ti ti-chevron-down chev"></i></div></div><div class="day-body">${pillsHTML}<div class="sec-lbl">Journée — 10:00 à 21:00</div>${S.d.map(rowHTML).join("")}<div class="sec-lbl">Nuit — 00:00 à 08:00</div>${S.n.map(rowHTML).join("")}</div></div>`;
+}
+
+const tabsEl=document.getElementById("wtabs");
+const wc=document.getElementById("wc");
+WEEKS.forEach(w=>{totalDays+=w.days.length;});
+
+WEEKS.forEach((w,i)=>{
+  const tb=document.createElement("button");
+  tb.className="wtab"+(i===0?" active":"");
+  tb.id="wt-"+w.id;
+  tb.innerHTML=w.title.split("—")[0].trim()+(w.prio?" ★":"")+'<span class="tab-dot"></span>';
+  tb.onclick=()=>{
+    document.querySelectorAll(".wtab").forEach(e=>e.classList.remove("active"));
+    document.querySelectorAll(".week-panel").forEach(e=>e.classList.remove("active"));
+    tb.classList.add("active");
+    document.getElementById("wp-"+w.id).classList.add("active");
+  };
+  tabsEl.appendChild(tb);
+
+  const panel=document.createElement("div");
+  panel.className="week-panel"+(i===0?" active":"");
+  panel.id="wp-"+w.id;
+
+  const progRow=!w.repos?`<div class="wk-prog-row"><div class="wk-prog-track"><div class="wk-prog-fill" data-week="${w.id}" data-total="${w.days.length}" style="width:0%;background:${w.col};box-shadow:0 0 6px ${w.col}40"></div></div><span class="wk-prog-lbl" style="color:${w.col}">0%</span></div>`:'';
+
+  const completeBanner=`<div class="wk-complete" data-week="${w.id}"><span class="wc-icon">🏆</span><div><div class="wc-text">Semaine complète — Bravo !</div><div class="wc-sub">Tous les jours de cette semaine sont terminés.</div></div></div>`;
+
+  const daysHTML=w.days.map(d=>dayHTML(d,w.col,w.id)).join("");
+
+  if(w.repos){
+    panel.innerHTML=`<div class="repos-top"><span class="emoji">😴</span><div class="title">2 jours libres avant l'examen</div><div class="sub">Révision très légère uniquement — pas de nouveaux sujets</div></div>${completeBanner}${daysHTML}<div class="exam-banner"><span class="e-icon">📝</span><div class="e-title">EXAMEN RÉGIONAL</div><div class="e-sub">Jeudi 25 juin — Tu as tout préparé. Courage et confiance !</div></div>`;
+  } else {
+    panel.innerHTML=`<div class="wk-hdr" style="--wk-color:${w.col};border-color:${w.col}33;"><div style="flex:1"><div class="wk-hdr-title" style="color:${w.col};">${w.title}</div><div class="wk-hdr-sub">${w.range} · ${w.days.length} jour${w.days.length>1?"s":""}</div>${progRow}</div>${w.prio?'<span class="badge-prio">⭐ Priorité haute</span>':""}</div>${completeBanner}${daysHTML}`;
+  }
+  wc.appendChild(panel);
+});
+
+function tgl(id){ document.getElementById(id).classList.toggle("open"); }
+
+// Init from saved state
+WEEKS.forEach(w=>{
+  w.days.forEach(d=>{
+    const id="d-"+d.date.replace(/\s/g,"-");
+    if(load(id))doneDays.add(id);
+  });
+});
+updateStats();
+</script>
+</body>
+</html>
